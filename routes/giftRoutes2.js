@@ -3,21 +3,18 @@ const router = express.Router();
 
 const connectToDatabase = require("../models/db");
 
-// Route for /api/gifts
+// Route to filter by category
 router.get("/", async (req, res) => {
   const db = await connectToDatabase();
-  const gifts = await db.collection("gifts").find().toArray();
-  res.json(gifts);
-});
 
-// Route for /api/gifts/:id
-router.get("/:id", async (req, res) => {
-  const db = await connectToDatabase();
-  const gift = await db
+  const category = req.query.category;
+
+  const gifts = await db
     .collection("gifts")
-    .findOne({ _id: req.params.id });
+    .find({ category: category })
+    .toArray();
 
-  res.json(gift);
+  res.json(gifts);
 });
 
 module.exports = router;
