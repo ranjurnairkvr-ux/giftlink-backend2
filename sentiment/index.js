@@ -1,1 +1,1 @@
-const natural = require("natural");
+const Sentiment = require("sentiment");
